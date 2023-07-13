@@ -2,7 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignupWidget extends StatelessWidget {
-  const SignupWidget({super.key});
+  SignupWidget({
+    super.key,
+    required this.onPressed,
+  });
+
+  final nameController = TextEditingController();
+  final emailControlller = TextEditingController();
+  final passwordController = TextEditingController();
+  final Function onPressed;
+
+  void signUpUser() {
+    final name = nameController.text.trim();
+    final email = emailControlller.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      return;
+    }
+
+    print(email);
+
+    onPressed(name, email, password);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +47,13 @@ class SignupWidget extends StatelessWidget {
                 color: const Color.fromARGB(120, 231, 231, 231),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const TextField(
-                //controller: _fname,
+              child: TextField(
+                controller: nameController,
                 textInputAction: TextInputAction.next,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                 ),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'First Name',
                   icon: Icon(Icons.supervised_user_circle),
@@ -50,6 +72,7 @@ class SignupWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: TextField(
+                controller: emailControlller,
                 textInputAction: TextInputAction.next,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -77,6 +100,7 @@ class SignupWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: TextField(
+                controller: passwordController,
                 textInputAction: TextInputAction.next,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -95,20 +119,11 @@ class SignupWidget extends StatelessWidget {
                 onSubmitted: (String value) {},
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                '_errorTextMessage',
-                style: TextStyle(
-                  color: Colors.red,
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
               child: Container(
                 height: 55,
-                width: 200,
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
@@ -116,14 +131,17 @@ class SignupWidget extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color.fromARGB(255, 199, 235, 179)),
-                  onPressed: () {},
+                    backgroundColor: const Color.fromARGB(255, 199, 235, 179),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: signUpUser,
                   child: Text(
                     'Sign Up',
                     style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w300,
                       color: Colors.black,
                     ),
                   ),

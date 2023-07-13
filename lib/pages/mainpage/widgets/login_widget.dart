@@ -2,7 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+  LoginWidget({
+    super.key,
+    required this.onPressed,
+  });
+
+  final emailControlller = TextEditingController();
+  final passwordController = TextEditingController();
+  final Function onPressed;
+
+  void signInUser() {
+    final email = emailControlller.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      return;
+    }
+
+    print(email);
+
+    onPressed(email, password);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +50,7 @@ class LoginWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
+                  controller: emailControlller,
                   textInputAction: TextInputAction.next,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -44,7 +65,6 @@ class LoginWidget extends StatelessWidget {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                   ),
-                  onChanged: (value) {},
                 ),
               ),
             ),
@@ -62,6 +82,7 @@ class LoginWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 child: TextField(
+                  controller: passwordController,
                   textInputAction: TextInputAction.done,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -76,17 +97,7 @@ class LoginWidget extends StatelessWidget {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                   ),
-                  onChanged: (value) {},
                   onSubmitted: (String value) {},
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                '_errorTextMessage',
-                style: TextStyle(
-                  color: Colors.red,
                 ),
               ),
             ),
@@ -122,7 +133,7 @@ class LoginWidget extends StatelessWidget {
                   top: 10, left: 30, right: 30, bottom: 10),
               child: Container(
                 height: 55,
-                width: 200,
+                width: double.infinity,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
@@ -130,14 +141,17 @@ class LoginWidget extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          const Color.fromARGB(255, 199, 235, 179)),
-                  onPressed: () {},
+                    backgroundColor: const Color.fromARGB(255, 199, 235, 179),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: signInUser,
                   child: Text(
                     'Login Now',
                     style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w300,
                       color: Colors.black,
                     ),
                   ),
