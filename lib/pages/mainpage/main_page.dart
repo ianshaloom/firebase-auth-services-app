@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/utils.dart';
 import '../../model/validate_email.dart';
+import '../homepage/widgets/homepage.dart';
 import 'widgets/login_widget.dart';
 import 'widgets/signup_widget.dart';
 
@@ -166,7 +167,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          Column(
+          /* Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(
@@ -190,7 +191,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ],
-          )
+          ) */
         ],
       ),
     );
@@ -220,7 +221,7 @@ class _MainPageState extends State<MainPage> {
               ),
             ],
           ),
-          Column(
+          /* Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Icon(
@@ -244,13 +245,14 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ],
-          )
+          ) */
         ],
       ),
     );
   }
 
   bool isEmailVerified = false;
+  final navigatorKey = GlobalKey<NavigatorState>();
 
   Future checkEmailVerified() async {
     setState(() {
@@ -342,17 +344,16 @@ class _MainPageState extends State<MainPage> {
       Utils.showSnackBar(context, e.code.toString());
       return;
     }
-
-    //Navigator.of(context).pop(); // Close the dialog
-    //navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   // Navigations
   void navigateToHomePage() {
+    Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed('/home_page/');
   }
 
   void navigateToEmailVerification() {
+    Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed('/verify_email_page/');
   }
 }
