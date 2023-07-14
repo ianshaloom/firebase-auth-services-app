@@ -1,12 +1,10 @@
 import 'package:authapp/model/validate_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/utils.dart';
 import '../../model/validate_email.dart';
-import '../homepage/widgets/homepage.dart';
 import 'widgets/login_widget.dart';
 import 'widgets/signup_widget.dart';
 
@@ -106,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                         setSignupPage();
                       },
                       child: Text(
-                        'Create New',
+                        "I'm New Here",
                         style: GoogleFonts.montserrat(
                           color: _pageIndex == 1
                               ? Colors.black
@@ -128,6 +126,7 @@ class _MainPageState extends State<MainPage> {
                   children: [
                     LoginWidget(
                       onPressed: signIn,
+                      passwordReset: navigateToPasswordReset,
                     ),
                     SignupWidget(
                       onPressed: createNewUser,
@@ -349,11 +348,18 @@ class _MainPageState extends State<MainPage> {
   // Navigations
   void navigateToHomePage() {
     Navigator.of(context).pop();
-    Navigator.of(context).pushReplacementNamed('/home_page/');
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/home_page/',
+      (route) => false,
+    );
   }
 
   void navigateToEmailVerification() {
     Navigator.of(context).pop();
-    Navigator.of(context).pushReplacementNamed('/verify_email_page/');
+    Navigator.of(context).pushNamed('/verify_email_page/');
+  }
+
+  void navigateToPasswordReset() {
+    Navigator.of(context).pushNamed('/reset_password_page/');
   }
 }

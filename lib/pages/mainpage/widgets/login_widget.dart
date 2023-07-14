@@ -5,11 +5,13 @@ class LoginWidget extends StatelessWidget {
   LoginWidget({
     super.key,
     required this.onPressed,
+    required this.passwordReset,
   });
 
   final emailControlller = TextEditingController();
   final passwordController = TextEditingController();
   final Function onPressed;
+  final Function passwordReset;
 
   void signInUser() {
     final email = emailControlller.text.trim();
@@ -115,7 +117,7 @@ class LoginWidget extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => passwordReset(),
                     child: Text(
                       'Reset',
                       style: GoogleFonts.montserrat(

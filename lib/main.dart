@@ -1,9 +1,9 @@
-import 'package:authapp/pages/homepage/widgets/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'model/routes.dart';
+import 'pages/homepage/widgets/homepage.dart';
 import 'pages/mainpage/main_page.dart';
 
 void main() async {
@@ -20,6 +20,10 @@ void main() async {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color.fromARGB(255, 199, 235, 179),          
+          centerTitle: true
+        ),
       ),
       home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

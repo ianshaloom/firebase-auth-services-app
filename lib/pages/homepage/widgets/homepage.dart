@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/utils.dart';
-import '../../mainpage/main_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Welcome"),
+        title: const Text("Welcome"),        
         automaticallyImplyLeading: false,
         actions: [
           Padding(
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 'sign out',
                 style: GoogleFonts.poppins(
                   fontSize: 15,
-                  fontWeight: FontWeight.w300,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),

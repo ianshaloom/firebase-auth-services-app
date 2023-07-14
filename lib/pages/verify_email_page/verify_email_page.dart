@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/utils.dart';
 import '../homepage/widgets/homepage.dart';
@@ -13,6 +14,7 @@ class VerifiedPage extends StatefulWidget {
 }
 
 class _VerifiedPageState extends State<VerifiedPage> {
+  Color buttonColor = Colors.black38;
   bool isEmailVerified = false;
   bool canResendEmail = false;
   Timer? timer;
@@ -29,7 +31,10 @@ class _VerifiedPageState extends State<VerifiedPage> {
 
       timer = Timer.periodic(
         const Duration(seconds: 3),
-        (_) => checkEmailVerified(),
+        (_) {
+          checkEmailVerified();
+          buttonColor = const Color.fromARGB(255, 199, 235, 179);
+        },
       );
     }
   }
@@ -73,6 +78,16 @@ class _VerifiedPageState extends State<VerifiedPage> {
   Widget build(BuildContext context) => isEmailVerified
       ? HomePage()
       : Scaffold(
+          appBar: AppBar(
+            title: const Text('Verify Email Address'),
+            leading: IconButton(
+              onPressed: () async {
+                FirebaseAuth.instance.signOut();
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.arrow_back_ios),
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -88,34 +103,21 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 const SizedBox(
                   height: 24,
                 ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50.0),
-                  ),
-                  icon: const Icon(
-                    Icons.email,
-                    size: 32,
-                  ),
-                  label: const Text(
-                    'Resend Email',
-                    style: TextStyle(fontSize: 24),
-                  ),
+                MaterialButton(
+                  height: 40,
                   onPressed: canResendEmail ? sendVerificationEmail : null,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextButton(
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 24),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  color: buttonColor,
+                  child: Text(
+                    'Resend Verification Link',
+                    style: GoogleFonts.montserrat(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                    ),
                   ),
-                  // Within the SecondRoute widget
-                  onPressed: () {
-                    FirebaseAuth.instance.signOut();
-                    Navigator.pop(context);
-                  },
-                )
+                ),
               ],
             ),
           ),
